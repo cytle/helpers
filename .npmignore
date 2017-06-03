@@ -1,0 +1,17 @@
+#osx
+.DS_Store
+
+#webstorm
+.idea
+
+#node模块
+node_modules
+Generated_files.xml
+.module-cache
+
+# 其他目录
+.gitignore
+.npmignore
+.dist
+.src
+

@@ -1,7 +1,7 @@
 {
   "name": "@2dfire/utils",
   "version": "0.0.1",
-  "main": "lib/index.js",
+  "main": "util.js",
   "description": "2dfire公用工具库",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "clean": "rimraf ./lib ./ui",
-    "babel": "babel src/ -d dist/",
+    "babel": "babel src/ -d ./",
     "build": "npm run clean && npm run babel",
     "push": "npm publish --registry http://10.1.6.28",
     "del": "npm unpublish --force --registry http://10.1.6.28",

@@ -1,9 +1,7 @@
-"use strict";
-
 /**
  * [Guide]
  */
 
-var Guide = function Guide() {};
+const Guide = function () {};
 
 module.exports = Guide;
