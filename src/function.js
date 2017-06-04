@@ -4,5 +4,5 @@
  * @return {Boolean}   true表示是方法,false表示不是
  */
 export function isFunction(v) {
-    return typeof(v) == 'function';
+  return typeof(v) == 'function'
 }

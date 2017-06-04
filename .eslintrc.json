@@ -1,6 +1,7 @@
 {
   "root": true,
   "extends": "airbnb",
+  "installedESLint": true,
   "env": {
     "es6": true,
     "node": true,
@@ -8,7 +9,6 @@
     "commonjs": true
   },
   "extends": "eslint:recommended",
-
   "settings": {
     "import/resolver": {
       "webpack": {
@@ -16,13 +16,15 @@
       }
     }
   },
-
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
-    "import",
+    "import"
   ],
   "extends": [
     "eslint:recommended",

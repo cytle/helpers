@@ -1,12 +1,12 @@
-import {isFunction} from 'src/function';
-import {objectAssign} from 'src/object';
-import Promise from 'promise';
+import {isFunction} from './function'
+import {objectAssign} from './object'
+import Promise from 'promise'
 
 /**
  * 上一次请求序号
  * @type {Number}
  */
-let lastRequestIndex = 0;
+let lastRequestIndex = 0
 
 /**
  * 请求是否取消集合
@@ -14,7 +14,7 @@ let lastRequestIndex = 0;
  * 拒绝,并且reason为{ isCancled: true }.如果回调已经结束则取消没有意义.
  * @type {Object}
  */
-const requestsCancle = {};
+const requestsCancle = {}
 
 /**
  * 创建一个promiseRequest
@@ -22,34 +22,34 @@ const requestsCancle = {};
  * @return {Function}         请求方法,执行后返回Promise来反应结果.
  */
 export function createPromiseRequest(request) {
-    return (options = {}) => {
-        const requestIndex = ++lastRequestIndex;
-        requestsCancle[requestIndex] = false;
-        const promise = new Promise((resolve, reject) => {
-            request(objectAssign({}, options, {
-                url: options.url,
-                success(...args) {
-                    if (requestsCancle[requestIndex]) {
-                        return reject({isCancled: true});
-                    }
-                    if (isFunction(options.success)) {
-                        options.success.apply(this, args);
-                    }
-                    resolve(...args);
-                },
-                error(...args) {
-                    if (requestsCancle[requestIndex]) {
-                        return reject({isCancled: true});
-                    }
-                    if (isFunction(options.error)) {
-                        options.error.apply(this, args);
-                    }
-                    resolve(...args);
-                }
-            }));
-        });
-        return promise;
-    };
+  return (options = {}) => {
+    const requestIndex = ++lastRequestIndex
+    requestsCancle[requestIndex] = false
+    const promise = new Promise((resolve, reject) => {
+      request(objectAssign({}, options, {
+        url: options.url,
+        success(...args) {
+          if (requestsCancle[requestIndex]) {
+            return reject({isCancled: true})
+          }
+          if (isFunction(options.success)) {
+            options.success.apply(this, args)
+          }
+          resolve(...args)
+        },
+        error(...args) {
+          if (requestsCancle[requestIndex]) {
+            return reject({isCancled: true})
+          }
+          if (isFunction(options.error)) {
+            options.error.apply(this, args)
+          }
+          resolve(...args)
+        }
+      }))
+    })
+    return promise
+  }
 }
 
 /**
@@ -57,7 +57,7 @@ export function createPromiseRequest(request) {
  * @return {Number}
  */
 export function getLastRequstIndex() {
-    return lastRequestIndex;
+  return lastRequestIndex
 }
 
 /**
@@ -66,9 +66,9 @@ export function getLastRequstIndex() {
  * @return {Void}
  */
 export function cancleRequest(requestIndex) {
-    if (requestIndex in requestsCancle) {
-        requestsCancle[requestIndex] = true;
-    }
+  if (requestIndex in requestsCancle) {
+    requestsCancle[requestIndex] = true
+  }
 }
 
 /**
@@ -76,5 +76,5 @@ export function cancleRequest(requestIndex) {
  * @return {Void}
  */
 export function cancleLastRequest() {
-    cancleRequest(getLastRequstIndex());
+  cancleRequest(getLastRequstIndex())
 }

@@ -1,4 +1,4 @@
-const mobilePhoneReg = /^1[3|4|5|7|8]\d{9}$/;
+const mobilePhoneReg = /^1[3|4|5|7|8]\d{9}$/
 
 /**
  * 检验字符串是否符合手机规则
@@ -6,5 +6,5 @@ const mobilePhoneReg = /^1[3|4|5|7|8]\d{9}$/;
  * @return {Boolean}
  */
 export function validateMobilePhone(v) {
-    return mobilePhoneReg.test(v);
+  return mobilePhoneReg.test(v)
 }

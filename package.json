@@ -1,14 +1,15 @@
 {
   "name": "helpers",
-  "version": "1.0.0",
+  "version": "v1.0.0",
   "description": "",
   "main": "lib/helpers.js",
   "scripts": {
     "dev": "cd build && webpack --watch --hide-modules",
     "build": "cd build && cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "eslint-fix": "eslint --fix src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "xsp",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -18,7 +19,10 @@
     "cross-env": "^5.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
     "npm-install-webpack-plugin": "github:webpack-contrib/npm-install-webpack-plugin",
+    "object-assign": "^4.1.1",
+    "promise": "^7.1.1",
     "webpack": "^2.6.1"
   }
 }

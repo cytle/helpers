@@ -1,5 +1,5 @@
 export function isString(v) {
-    return typeof(v) == 'string';
+  return typeof(v) == 'string'
 }
 
 /**
@@ -8,7 +8,7 @@ export function isString(v) {
  * @return {String}
  */
 export function stringTrim(str) {
-    return str.replace(/^\s*|\s*$/g, '');
+  return str.replace(/^\s*|\s*$/g, '')
 }
 
 /**
@@ -17,7 +17,7 @@ export function stringTrim(str) {
  * @return {String}
  */
 export function stringTrimLeft(str) {
-    return str.replace(/^\s*/, '');
+  return str.replace(/^\s*/, '')
 }
 
 /**
@@ -26,7 +26,7 @@ export function stringTrimLeft(str) {
  * @return {String}
  */
 export function stringTrimRight(str) {
-    return str.replace(/\s*$/, '');
+  return str.replace(/\s*$/, '')
 }
 
 /**
@@ -35,12 +35,12 @@ export function stringTrimRight(str) {
  * @return {String}       key=value[&key=value]形式字符串
  */
 export function queryParamsToString(params) {
-    if (!params || typeof params !== 'object') {
-        return '';
-    }
-    return Object.keys(params).map(function (k) {
-        return k + '=' + (params[k] || '');
-    }).join('&');
+  if (!params || typeof params !== 'object') {
+    return ''
+  }
+  return Object.keys(params).map(function (k) {
+    return k + '=' + (params[k] || '')
+  }).join('&')
 }
 
 /**
@@ -50,23 +50,23 @@ export function queryParamsToString(params) {
  * @return {void}
  */
 export function createUrlWithQuery (baseUrl, params) {
-    const paramsStr = queryParamsToString(params);
-    if (!paramsStr) {
-        return baseUrl;
-    }
+  const paramsStr = queryParamsToString(params)
+  if (!paramsStr) {
+    return baseUrl
+  }
 
-    let subStr = '';
+  let subStr = ''
     // 没有问号
-    if (baseUrl.lastIndexOf('?') === -1) {
-        subStr = '?';
-    } else {
+  if (baseUrl.lastIndexOf('?') === -1) {
+    subStr = '?'
+  } else {
         // 最后一个字符
-        const lastChar = baseUrl.slice(-1);
+    const lastChar = baseUrl.slice(-1)
         // 如果最后接在最后一个字符不是是?并且是&加上一个&
-        if (lastChar !== '&' && lastChar !== '?') {
-            subStr = '&';
-        }
+    if (lastChar !== '&' && lastChar !== '?') {
+      subStr = '&'
     }
+  }
 
-    return baseUrl + subStr + paramsStr;
+  return baseUrl + subStr + paramsStr
 }

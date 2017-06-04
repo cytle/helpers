@@ -1,9 +1,8 @@
-import objectAssign from 'object-assign';
+import objectAssign from 'object-assign'
 
 export {
     objectAssign
-};
-
+}
 
 /**
  * 判断是否是对象(除数组)
@@ -11,7 +10,7 @@ export {
  * @return {Boolean}   true表示是,false表示不是
  */
 export function isEnumObject(v) {
-    return toString.apply(v) === '[object Object]';
+  return toString.apply(v) === '[object Object]'
 }
 
 /**
@@ -27,14 +26,14 @@ export function isEnumObject(v) {
  * @return {Object}
  */
 export function objectMap(obj, cb) {
-    const hasOwn = Object.prototype.hasOwnProperty;
-    const newObj = {};
-    for (const index in obj) {
-        if (hasOwn.call(obj, index)) {
-            newObj[index] = cb.call(obj, obj[index], index, obj);
-        }
+  const hasOwn = Object.prototype.hasOwnProperty
+  const newObj = {}
+  for (const index in obj) {
+    if (hasOwn.call(obj, index)) {
+      newObj[index] = cb.call(obj, obj[index], index, obj)
     }
-    return newObj;
+  }
+  return newObj
 }
 
 /**
@@ -50,10 +49,10 @@ export function objectMap(obj, cb) {
  * @return {Void}
  */
 export function objectForEach(obj, cb) {
-    const hasOwn = Object.prototype.hasOwnProperty;
-    for (const index in obj) {
-        if (hasOwn.call(obj, index)) {
-            cb.call(obj, obj[index], index, obj);
-        }
+  const hasOwn = Object.prototype.hasOwnProperty
+  for (const index in obj) {
+    if (hasOwn.call(obj, index)) {
+      cb.call(obj, obj[index], index, obj)
     }
+  }
 }
