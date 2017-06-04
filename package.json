@@ -1,6 +1,6 @@
 {
   "name": "xsp-helpers",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "description": "",
   "main": "lib/helpers.js",
   "scripts": {
