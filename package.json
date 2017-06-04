@@ -1,5 +1,5 @@
 {
-  "name": "helpers",
+  "name": "xsp-helpers",
   "version": "v1.0.0",
   "description": "",
   "main": "lib/helpers.js",
