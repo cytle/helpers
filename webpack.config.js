@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'lib'),
         filename: '[name].' + platform + '.js',
-        libraryTarget: 'commonjs2'
+        libraryTarget: 'umd'
     },
     plugins: [],
     resolve: {
