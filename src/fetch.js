@@ -28,6 +28,7 @@
 import window from './window';
 import ajax from './ajax';
 import format from './format';
+import query from './query';
 
 class FireFetch {
     constructor(options) {
@@ -102,7 +103,7 @@ class FireFetch {
         if (response.code == -1 || response.code == undefined) {
             if (response.code == -1) {
                 //重新授权前需要清理cookie数据
-                orderParamsInfo.reset();
+                cookie.reset();
                 window.globalBasePage.showInfo(window.globalBasePage.type.sessionOut);
             } else {
                 if (this.isShowLoading !== false) {
@@ -124,7 +125,7 @@ class FireFetch {
             reject(response);
         } else {
             //每次接口返回了成功，就延长指定的cookie1Day
-            orderParamsInfo.postPoneAll();
+            cookie.postPoneAll();
             if (this.success) {
                 if (!response.data) {
                     response.data = {};
@@ -173,9 +174,9 @@ class FireFetch {
     // 统计/token/时间戳/定位信息/灰度  (参考原 http.js 原来的代码)
     otherInit() {
         var params = {
-            xtoken: orderParamsInfo.getToken(),
+            xtoken: cookie.getToken(),
             t: new Date().getTime(),
-            g_entityId: orderParamsInfo.getEntityId()
+            g_entityId: cookie.getEntityId()
         };
 
         var gpsInfo = localInfo.getGPSInfo();   //获取地理位置定位数据
@@ -243,7 +244,7 @@ var dFireFetch = function (options) {
     if (!options.params) {
         options.params = {};
     }
-    options.params.xtoken = orderParamsInfo.getToken() || orderParamsInfo.queryString('token');
+    options.params.xtoken = cookie.getToken() || query('token');
     var dfFetch = new FireFetch(options);
     return dfFetch.doFetch();
 };
