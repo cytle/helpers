@@ -25,12 +25,14 @@
  *
  */
 
-import window from './window';
-import Promise from 'promise';
-import ajax from './ajax';
+import Promise from 'web/promise';
+import ajax from 'web/ajax';
 import format from './format';
-import query from './query';
-import localStorage from './localStorage';
+import query from 'web/query';
+import localStorage from 'web/localStorage';
+import globalBasePage from 'web/globalBasePage';
+import location from 'web/location';
+import DfAnalytics from 'web/analytics';
 
 class FireFetch {
     constructor(options) {
@@ -94,11 +96,11 @@ class FireFetch {
 
     successHandler(response, resolve, reject) {
         if (this.isShowLoading) {
-            window.globalBasePage && window.globalBasePage.stopLoading();
+            globalBasePage && globalBasePage.stopLoading();
         }
 
         if (response.code == 2001) {
-            window.location.href = "../page/blacklist.html?t=grunt_page_time";
+            location.href = "../page/blacklist.html?t=grunt_page_time";
             return false;
         }
 
@@ -106,7 +108,7 @@ class FireFetch {
             if (response.code == -1) {
                 //重新授权前需要清理cookie数据
                 cookie.reset();
-                window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.sessionOut);
+                globalBasePage && globalBasePage.showInfo(globalBasePage.type.sessionOut);
             } else {
                 if (this.isShowLoading !== false) {
                     this.globalErrorHandler();  // todo hupo 查看原来的ajax逻辑 为何只在这里处理 error
@@ -115,14 +117,14 @@ class FireFetch {
             if (this.error) {
                 this.error(response);
             }
-            if (window.DFAnalytics) {
+            if (DfAnalytics) {
                 // 新统计相关
                 var params = {
                     api: this.url,
                     code: response.code || "",
                     message: response.message || ""
                 };
-                window.DFAnalytics.fire("Er", "apiEr", params);
+                DfAnalytics.fire("Er", "apiEr", params);
             }
             reject(response);
         } else {
@@ -140,7 +142,7 @@ class FireFetch {
 
     errorHandler(response) {
         if (this.isShowLoading) {
-            window.globalBasePage && window.globalBasePage.stopLoading();
+            globalBasePage && globalBasePage.stopLoading();
             this.globalErrorHandler();
         }
 
@@ -148,28 +150,28 @@ class FireFetch {
             this.error(response);
         }
 
-        if (window.DFAnalytics) {
+        if (DfAnalytics) {
             // 新统计相关
             var params = {
                 api: this.url,
                 code: response.code || "",
                 message: response.message || ""
             };
-            window.DFAnalytics.fire("Er", "apiEr", params);
+            DfAnalytics.fire("Er", "apiEr", params);
         }
     }
 
     // 全局的请求出错处理  (这部分不是很清楚 直接copy http.js原来的代码)
     globalErrorHandler() {
         if (this.reload) {                                           //是否重载
-            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.error, {
+            globalBasePage && globalBasePage.showInfo(globalBasePage.type.error, {
                 errorMessage: this.errorMessage,
                 reload: this.reload
             });
         } else if (this.warnMessage) {
-            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.warn, {warnMessage: this.warnMessage});
+            globalBasePage && globalBasePage.showInfo(globalBasePage.type.warn, {warnMessage: this.warnMessage});
         } else if (this.infoMessage) {
-            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.info, {infoMessage: this.infoMessage});
+            globalBasePage && globalBasePage.showInfo(globalBasePage.type.info, {infoMessage: this.infoMessage});
         }
     }
 
@@ -193,7 +195,7 @@ class FireFetch {
         var self = this;
         if (self.isShowLoading) {
             // todo globalBasePage
-            window.globalBasePage && window.globalBasePage.startLoading({content: ""});
+            globalBasePage && globalBasePage.startLoading({content: ""});
         }
 
         self.otherInit();

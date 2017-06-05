@@ -36,12 +36,12 @@
 ## 需要导出小程序的模块
 
 ```
-    "utils/fetch_light.js"                                 
-    "utils/localStorage_light.js"                          
-    "utils/sessionStorage_light.js"                        
-    "utils/cookie_light.js"                        
-    "utils/query_light.js"                        
-    "utils/redirect_light.js"                        
-    "utils/window_light.js"                        
+    "utils/fetch.js"                                 
+    "utils/localStorage.js"                          
+    "utils/sessionStorage.js"                        
+    "utils/cookie.js"                        
+    "utils/query.js"                        
+    "utils/redirect.js"                        
+    "utils/window.js"                        
 
 ```
