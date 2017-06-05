@@ -20,9 +20,10 @@
   ],
   "license": "MIT",
   "author": "hupo",
-
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "js-cookie": "^2.1.4",
+    "query-string": "^4.3.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
