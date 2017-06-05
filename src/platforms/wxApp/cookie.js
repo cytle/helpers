@@ -1,9 +1,11 @@
-export function setItem () {
+const values = {};
 
+export function setItem (name, value) {
+    values[name] = value;
 }
 
-export function getItem () {
-
+export function getItem (name) {
+    return values[name];
 }
 
 export function removeItem () {
