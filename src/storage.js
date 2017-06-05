@@ -6,12 +6,12 @@
 import Type   from './type';
 import Window from './window';
 
-const { isArray , isString , isJson ,  toJson } = Type;
+const { isArray , isString , isPlainObject ,  toJson } = Type;
 
 const Storage = {
     // 入参 可以是 { key , val } 或者 name, val
     set( name , val ) {
-        if ( isJson(name) ) {
+        if ( isPlainObject(name) ) {
             let obj = name;
             for( let key in obj ) {
                 this.setItem( key , obj[key] );
@@ -46,7 +46,7 @@ const Storage = {
     // 入参  name, val
     setItem (name, value) {
         if( isString( name ) ){
-            value = isJson(value) ? JSON.stringify(value) : value;
+            value = isPlainObject(value) ? JSON.stringify(value) : value;
             this.sg.setItem(name, value);
         }
     },
