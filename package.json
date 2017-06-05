@@ -15,9 +15,6 @@
     "del": "npm unpublish --force --registry http://10.1.6.28",
     "repush": "npm run del && npm run push"
   },
-  "files": [
-    "dist/"
-  ],
   "license": "MIT",
   "author": "hupo",
 

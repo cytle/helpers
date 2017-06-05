@@ -24,7 +24,11 @@
 ## 内容说明
 
 ```
-    "utils/type.js"                                       格式判断和转换相关工具
-    "utils/fetch.js"                                      ajax请求相关工具
+    + "utils/type.js"                                       格式判断和转换相关工具
+    + "utils/fetch.js"                                      ajax请求相关工具
+    + "utils/format.js"                                     格式化相关工具
+        - clone                                                   克隆
+        - date                                                    日期格式化
+        - params                                                  ajax params 格式化
 
 ```

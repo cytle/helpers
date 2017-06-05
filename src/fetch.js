@@ -25,7 +25,9 @@
  *
  */
 
-import AppUtil from './appUtil';
+import window from './window';
+import ajax from './ajax';
+import format from './format';
 
 class FireFetch {
     constructor(options) {
@@ -46,15 +48,12 @@ class FireFetch {
             withCredentials: true
         };
         // 其他
-        // this.infoUrl = fireTrack.util.sub2(this.url);
         this.warnMessage = options.warnMessage;
         this.infoMessage = options.infoMessage;
         this.errorMessage = options.errorMessage;
         // 统计相关
-        // this.rnd = Math.random();
-        // this.infoUrl = "";
 
-        this.url = AppUtil.paramsFormat(this.url, options.params);
+        this.url = format.params(this.url, options.params);
 
         if (options.type != undefined) {
             this.type = options.type;
@@ -86,13 +85,13 @@ class FireFetch {
             this.isShowLoading = options.showLoading;
         }
         if (options.tempData) {
-            this.tempData = AppUtil.clone(options.tempData);
+            this.tempData = format.clone(options.tempData);
         }
     }
 
     successHandler(response, resolve, reject) {
         if (this.isShowLoading) {
-            globalBasePage.stopLoading();
+            window.globalBasePage.stopLoading();
         }
 
         if (response.code == 2001) {
@@ -104,7 +103,7 @@ class FireFetch {
             if (response.code == -1) {
                 //重新授权前需要清理cookie数据
                 orderParamsInfo.reset();
-                globalBasePage.showInfo(globalBasePage.type.sessionOut);
+                window.globalBasePage.showInfo(window.globalBasePage.type.sessionOut);
             } else {
                 if (this.isShowLoading !== false) {
                     this.globalErrorHandler();  // todo hupo 查看原来的ajax逻辑 为何只在这里处理 error
@@ -134,14 +133,11 @@ class FireFetch {
             }
             resolve(response);
         }
-        // 统计相关
-        // fireTrack.outside().mark(this.infoUrl + "_2" + this.rnd);
-        // fireTrack.outside().measure(this.infoUrl + "_3" + this.rnd, this.infoUrl + "_1" + this.rnd, this.infoUrl + "_2" + this.rnd);
     }
 
     errorHandler(response) {
         if (this.isShowLoading) {
-            globalBasePage.stopLoading();
+            window.globalBasePage.stopLoading();
             this.globalErrorHandler();
         }
 
@@ -158,22 +154,19 @@ class FireFetch {
             };
             window.DFAnalytics.fire("Er", "apiEr", params);
         }
-        // 统计相关
-        // fireTrack.outside().mark(this.infoUrl + "_2" + this.rnd);
-        // fireTrack.outside().measure(this.infoUrl + "_4" + this.rnd, this.infoUrl + "_1" + this.rnd, this.infoUrl + "_2" + this.rnd);
     }
 
     // 全局的请求出错处理  (这部分不是很清楚 直接copy http.js原来的代码)
     globalErrorHandler() {
         if (this.reload) {                                           //是否重载
-            globalBasePage.showInfo(globalBasePage.type.error, {
+            window.globalBasePage.showInfo(window.globalBasePage.type.error, {
                 errorMessage: this.errorMessage,
                 reload: this.reload
             });
         } else if (this.warnMessage) {
-            globalBasePage.showInfo(globalBasePage.type.warn, {warnMessage: this.warnMessage});
+            window.globalBasePage.showInfo(window.globalBasePage.type.warn, {warnMessage: this.warnMessage});
         } else if (this.infoMessage) {
-            globalBasePage.showInfo(globalBasePage.type.info, {infoMessage: this.infoMessage});
+            window.globalBasePage.showInfo(window.globalBasePage.type.info, {infoMessage: this.infoMessage});
         }
     }
 
@@ -190,22 +183,19 @@ class FireFetch {
             params["loc"] = gpsInfo;
         }
 
-        AppUtil.paramsFormat(this.url, params);
-
-        // 统计相关
-        // fireTrack.outside().mark(this.infoUrl + "_1" + this.rnd);
+        format.params(this.url, params);
     }
 
     doFetch() {
         var self = this;
         if (self.isShowLoading) {
-            globalBasePage.startLoading({content: ""});
+            window.globalBasePage.startLoading({content: ""});
         }
 
         self.otherInit();
 
         var promise = new Promise(function (resolve, reject) {
-            $.ajax({
+            ajax({
                 type: self.type,
                 url: self.url,
                 dataType: 'json',
@@ -218,7 +208,6 @@ class FireFetch {
                     if (self.beforeSend) {
                         self.beforeSend();
                     }
-                    // fireTrack.outside().mark(self.infourl + "_1" + self.rnd);
                 },
                 success: function (data) {
                     self.successHandler(data, resolve, reject);
