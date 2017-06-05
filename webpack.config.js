@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const alias = require('./alias');
-const platform = process.env.PLATFORM || 'web';
+var path = require('path');
+var webpack = require('webpack');
+var alias = require('./alias');
+var platform = process.env.PLATFORM || 'web';
 
 module.exports = {
     entry: {
@@ -14,7 +14,7 @@ module.exports = {
     },
     plugins: [],
     resolve: {
-        alias
+        alias: alias
     },
     module: {
         rules: [{
