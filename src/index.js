@@ -1,24 +1,21 @@
+import * as array from './base/array';
+import * as string from './base/string';
+import * as date from './base/date';
+import * as object from './base/object';
+import * as localStorage from 'platform/localStorage';
+import * as sessionStorage from 'platform/sessionStorage';
+import * as cookie from 'platform/cookie';
+import * as location from 'platform/location';
 
-import Param   from './param';     	// url 属性 获取
-import Cookie  from './cookie';		// cookie 相关	
-import Storage from './storage';    // sessionStorage 相关
-import Type    from './type';       // type 类型转换 相关
-import Debug   from 'debug';          // debug
-import Redirect   from './redirect';     // redirect 页面跳转 相关
-import ClassNames from 'classnames';  // classnames
-
-import KeyMirror     from 'keymirror';  // keymirror
-import Dfetch     from './fetch';  // keymirror
-
-
-export {
-    Param,
-    Cookie,
-    Storage,
-    Redirect,
-    Type,
-    Debug,
-    ClassNames,
-    KeyMirror,
-    Dfetch,
+module.exports = {
+    array,
+    string,
+    date,
+    object,
+    localStorage,
+    sessionStorage,
+    cookie,
+    location
 };
+
+module.exports.default = module.exports;
