@@ -26,9 +26,11 @@
  */
 
 import window from './window';
+import Promise from 'promise';
 import ajax from './ajax';
 import format from './format';
 import query from './query';
+import localStorage from './localStorage';
 
 class FireFetch {
     constructor(options) {
@@ -92,7 +94,7 @@ class FireFetch {
 
     successHandler(response, resolve, reject) {
         if (this.isShowLoading) {
-            window.globalBasePage.stopLoading();
+            window.globalBasePage && window.globalBasePage.stopLoading();
         }
 
         if (response.code == 2001) {
@@ -104,7 +106,7 @@ class FireFetch {
             if (response.code == -1) {
                 //重新授权前需要清理cookie数据
                 cookie.reset();
-                window.globalBasePage.showInfo(window.globalBasePage.type.sessionOut);
+                window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.sessionOut);
             } else {
                 if (this.isShowLoading !== false) {
                     this.globalErrorHandler();  // todo hupo 查看原来的ajax逻辑 为何只在这里处理 error
@@ -138,7 +140,7 @@ class FireFetch {
 
     errorHandler(response) {
         if (this.isShowLoading) {
-            window.globalBasePage.stopLoading();
+            window.globalBasePage && window.globalBasePage.stopLoading();
             this.globalErrorHandler();
         }
 
@@ -160,26 +162,26 @@ class FireFetch {
     // 全局的请求出错处理  (这部分不是很清楚 直接copy http.js原来的代码)
     globalErrorHandler() {
         if (this.reload) {                                           //是否重载
-            window.globalBasePage.showInfo(window.globalBasePage.type.error, {
+            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.error, {
                 errorMessage: this.errorMessage,
                 reload: this.reload
             });
         } else if (this.warnMessage) {
-            window.globalBasePage.showInfo(window.globalBasePage.type.warn, {warnMessage: this.warnMessage});
+            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.warn, {warnMessage: this.warnMessage});
         } else if (this.infoMessage) {
-            window.globalBasePage.showInfo(window.globalBasePage.type.info, {infoMessage: this.infoMessage});
+            window.globalBasePage && window.globalBasePage.showInfo(window.globalBasePage.type.info, {infoMessage: this.infoMessage});
         }
     }
 
     // 统计/token/时间戳/定位信息/灰度  (参考原 http.js 原来的代码)
     otherInit() {
         var params = {
-            xtoken: cookie.getToken(),
+            xtoken: cookie.get("token"),
             t: new Date().getTime(),
-            g_entityId: cookie.getEntityId()
+            g_entityId: cookie.get("entity_id")
         };
 
-        var gpsInfo = localInfo.getGPSInfo();   //获取地理位置定位数据
+        var gpsInfo = localStorage.get("gps");   //获取地理位置定位数据
         if (gpsInfo) {
             params["loc"] = gpsInfo;
         }
@@ -190,7 +192,8 @@ class FireFetch {
     doFetch() {
         var self = this;
         if (self.isShowLoading) {
-            window.globalBasePage.startLoading({content: ""});
+            // todo globalBasePage
+            window.globalBasePage && window.globalBasePage.startLoading({content: ""});
         }
 
         self.otherInit();
@@ -244,7 +247,7 @@ var dFireFetch = function (options) {
     if (!options.params) {
         options.params = {};
     }
-    options.params.xtoken = cookie.getToken() || query('token');
+    options.params.xtoken = cookie.get("token") || query('token');
     var dfFetch = new FireFetch(options);
     return dfFetch.doFetch();
 };

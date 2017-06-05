@@ -32,3 +32,16 @@
         - params                                                  ajax params 格式化
 
 ```
+
+## 需要导出小程序的模块
+
+```
+    "utils/fetch_light.js"                                 
+    "utils/localStorage_light.js"                          
+    "utils/sessionStorage_light.js"                        
+    "utils/cookie_light.js"                        
+    "utils/query_light.js"                        
+    "utils/redirect_light.js"                        
+    "utils/window_light.js"                        
+
+```
