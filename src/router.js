@@ -25,23 +25,19 @@ export function redirectTo (baseUrl, params = {}) {
 export const navigateBack = location.navigateBack;
 
 // route
-export const route = {};
-const defineProperty = Object.defineProperty;
-
-defineProperty(route, 'search', {
-    configurable: true,
-    enumerable: true,
-    writable: false,
-    get () {
+let oldSearch;
+let oldQuery;
+export const route = {
+    get search () {
         return location.search;
+    },
+    get query () {
+        const search = this.search;
+        if (oldSearch && oldSearch === search) {
+            return oldQuery;
+        }
+        oldSearch = search;
+        oldQuery = qs.stringify(location.search);
+        return oldQuery;
     }
-});
-
-defineProperty(route, 'query', {
-    configurable: true,
-    enumerable: true,
-    writable: false,
-    get () {
-        return qs.stringify(location.search);
-    }
-});
+};
