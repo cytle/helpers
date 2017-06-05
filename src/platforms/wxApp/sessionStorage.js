@@ -1,19 +1,25 @@
-export function setItem () {
+let values = {};
 
+export function setItem (name, value) {
+    values[name] = value + '';
 }
 
-export function getItem () {
-
+export function getItem (name) {
+    return values[name] || '';
 }
 
-export function removeItem () {
-
+export function removeItem (name) {
+    if (name in values) {
+        delete values[name];
+    }
 }
 
 export function clear () {
-
+    values = {};
 }
 
-export function getJSON () {
-
+export function getJSON (name) {
+    return JSON.parse(getItem(name));
 }
+
+export default exports;

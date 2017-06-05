@@ -1,3 +1,4 @@
+const location = window.location;
 
 export function navigateTo (url) {
     location.href = url;

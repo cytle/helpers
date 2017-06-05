@@ -1,11 +1,9 @@
-const { setItem, getItem, removeItem } = window.sessionStorage;
+const { setItem, getItem, removeItem, clear } = window.sessionStorage;
 
-function clear () {
-
+function getJSON (name) {
+    return JSON.parse(getItem(name));
 }
-function getJSON () {
 
-}
 export {
     setItem,
     getItem,
@@ -13,3 +11,4 @@ export {
     clear,
     getJSON
 };
+export default exports;

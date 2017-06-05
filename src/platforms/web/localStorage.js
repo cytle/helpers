@@ -1,11 +1,10 @@
-const { setItem, getItem, removeItem } = window.localStorage;
 
-function clear () {
+const { setItem, getItem, removeItem, clear } = window.localStorage;
 
+function getJSON (name) {
+    return JSON.parse(getItem(name));
 }
-function getJSON () {
 
-}
 export {
     setItem,
     getItem,
@@ -13,3 +12,5 @@ export {
     clear,
     getJSON
 };
+
+export default exports;

@@ -1,22 +1,21 @@
+// TODO
+let href = '';
+let search = '';
 
 export function navigateTo (url) {
-    location.href = url;
+    wx.navigateTo({ url });
 }
 export function redirectTo (url) {
-    location.replace(url);
+    wx.redirectTo({ url });
 }
 export function navigateBack () {
-    location.go(-1);
+    wx.navigateBack();
 }
 
 export default {
     navigateTo,
     redirectTo,
     navigateBack,
-    get search () {
-        return location.search;
-    },
-    get href () {
-        return location.href;
-    }
+    search,
+    href
 };
